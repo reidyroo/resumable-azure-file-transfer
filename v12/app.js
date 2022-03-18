@@ -14,15 +14,9 @@ app.set('view engine', 'hbs');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 //app.use(bodyParser.json());
-app.use(bodyParser.json({
-  limit: '200mb'
-}));
 //app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({
-  limit: '200mb',
-  parameterLimit: 1000000,
-  extended: true 
-}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
