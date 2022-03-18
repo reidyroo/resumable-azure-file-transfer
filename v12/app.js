@@ -15,8 +15,8 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({limit: '2gb'}));
-app.use(bodyParser.urlencoded({limit: '2gb', extended: true}));
+app.use(bodyParser.json({ limit: '500mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '500mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
