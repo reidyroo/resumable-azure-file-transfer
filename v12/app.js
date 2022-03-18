@@ -15,12 +15,12 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 //app.use(bodyParser.json());
 app.use(bodyParser.json({
-  limit: '20mb'
+  limit: '200mb'
 }));
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({
-  limit: '20mb',
-  parameterLimit: 100000,
+  limit: '200mb',
+  parameterLimit: 1000000,
   extended: true 
 }));
 app.use(cookieParser());
