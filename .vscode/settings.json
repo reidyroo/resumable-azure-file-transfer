@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9cb95103-7d7d-4019-934c-11cf3b3bc4da/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/vmduploadapp",
+    "appService.deploySubpath": "."
+}
