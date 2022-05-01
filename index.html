@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<!-- 
+  Acknowledgments - this resumable file upload algorithm is based on this post: https://uk.javascript.info/resume-upload thank you to the author
+
+  This file is a prototype for a hackathon and not intended for production
+
+  I have modified it as follows:
+  1. Add a submission ID field - this will be used in Power Apps portals so that the upload can be associated with a submission (GUID)
+  2. Change save file location to Azure Blob storage and use the Azure Blob API
+  3. Turn it into a PCF component that can be used within the Power Apps portal to encapsulate the logic
+-->
+<script src="uploader.js"></script>
+
+<form name="upload" method="POST" enctype="multipart/form-data" action="/upload">
+  <input type="hidden" name="submissionid" value="80e3f25e-6bc8-ec11-a81b-000d3a43fda9">
+  <input type="file" name="myfile">
+  <input type="submit" name="submit" value="Upload (Resumes automatically)">
+</form>
+
+<button onclick="uploader.stop()">Stop upload</button>
+
+
+<div id="log">Progress indication</div>
+
+<script>
+  function log(html) {
+    document.getElementById('log').innerHTML = html;
+    console.log(html);
+  }
+
+  function onProgress(loaded, total) {
+    log("progress " + loaded + ' / ' + total);
+  }
+
+  let uploader;
+
+  document.forms.upload.onsubmit = async function(e) {
+    e.preventDefault();
+
+    let file = this.elements.myfile.files[0];
+    if (!file) return;
+
+    let submissionid = this.elements.submissionid.defaultValue;
+    if (!submissionid) return;
+
+    uploader = new Uploader({file, submissionid, onProgress});
+
+    try {
+      let uploaded = await uploader.upload();
+
+      if (uploaded) {
+        log('success');
+      } else {
+        log('stopped');
+      }
+
+    } catch(err) {
+      console.error(err);
+      log('error');
+    }
+  };
+
+</script>
